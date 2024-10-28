@@ -1,0 +1,189 @@
+
+This is a logical formula.
+((p → q) ∧ (q → r)) → (p → r)
+
+
+This is a proof tree in overleaf friendly latex:
+Proof for $\neg (p \mor q) \impl (\neg p \mand \neg q)$:
+\begin{prooftree}
+% Left branch
+\AxiomC{~}
+\ax
+\UnaryInfC{$p \fCenter p, \, q $}
+\rlabel{\neg}
+\UnaryInfC{$\fCenter p, \, q,\, \neg p$}
+% Right branch
+\AxiomC{~}
+\ax
+\UnaryInfC{$q \fCenter p, \, q $}
+\rlabel{\neg}
+\UnaryInfC{$\fCenter p, \, q,\, \neg q$}
+% BinaryInfC creates two branches
+\rlabel{\mand}
+\BinaryInfC{$\fCenter p, \, q,\, \neg p \mand \neg q$}
+\rlabel{\mor}
+\UnaryInfC{$\fCenter p \mor q,\, \neg p \mand \neg q$}
+\llabel{\neg}
+\UnaryInfC{$\neg (p \mor q) \fCenter \neg p \mand \neg q$}
+\rlabel{\impl}
+\UnaryInfC{$\fCenter \neg (p \mor q) \impl (\neg p \mand \neg q)$}
+\end{prooftree}
+
+old notes:
+
+\begin{prooftree}
+% AxiomC completes the proof tree.
+\AxiomC{~}
+\ax
+\UnaryInfC{$p,\, q \fCenter p$}
+\rlabel{\impl}
+\UnaryInfC{$p \fCenter (q \impl p)$}
+\rlabel{\impl}
+% UnaryInfC creates a branch
+\UnaryInfC{$\fCenter p \impl (q \impl p)$}
+\end{prooftree}
+
+Proof for $\neg (p \mor q) \impl (\neg p \mand \neg q)$:
+\begin{prooftree}
+% Left branch
+\AxiomC{~}
+\ax
+\UnaryInfC{$p \fCenter p, \, q $}
+\rlabel{\neg}
+\UnaryInfC{$\fCenter p, \, q,\, \neg p$}
+% Right branch
+\AxiomC{~}
+\ax
+\UnaryInfC{$q \fCenter p, \, q $}
+\rlabel{\neg}
+\UnaryInfC{$\fCenter p, \, q,\, \neg q$}
+% BinaryInfC creates two branches
+\rlabel{\mand}
+\BinaryInfC{$\fCenter p, \, q,\, \neg p \mand \neg q$}
+\rlabel{\mor}
+\UnaryInfC{$\fCenter p \mor q,\, \neg p \mand \neg q$}
+\llabel{\neg}
+\UnaryInfC{$\neg (p \mor q) \fCenter \neg p \mand \neg q$}
+\rlabel{\impl}
+\UnaryInfC{$\fCenter \neg (p \mor q) \impl (\neg p \mand \neg q)$}
+\end{prooftree}
+
+\bigskip
+
+Derivation with an open branch:
+\begin{prooftree}
+  \AxiomC{$p \fCenter q$}
+
+  \AxiomC{~}
+  \ax
+  \UnaryInfC{$p \fCenter p$}
+
+  \rlabel{\mand}
+  \BinaryInfC{$ p \fCenter q \mand p$ }
+  \rlabel{\impl}
+  \UnaryInfC{$\fCenter p \impl (q \mand p)$ }
+\end{prooftree}
+
+\bigskip
+
+
+\noindent It's also possible to create inline proofs - this can be useful when defining or referencing rules.
+\\
+As an example, here is the $\mand$-right rule:
+\AxiomC{$\Gamma \fCenter A ,\, \Delta$}
+\AxiomC{$\Gamma \fCenter B ,\, \Delta$}
+\rlabel{\mand}
+\BinaryInfC{$\Gamma \fCenter A \mand B, \, \Delta$}
+\DisplayProof
+
+\end{document}
+
+
+
+Proof for $\forall x \exists y ( p(x) \land (p(y) \rightarrow q(x)) ) \rightarrow \forall z q(z)$:
+\begin{prooftree}
+% Left branch
+\AxiomC{~}
+\ax
+\UnaryInfC{$\forall x \exists y ( p(x) \land (p(y) \rightarrow q(x)) ) \fCenter \forall x \exists y ( p(x) \land (p(y) \rightarrow q(x)) )$}
+\rlabel{\forall x}
+\UnaryInfC{$\exists y ( p(x) \land (p(y) \rightarrow q(x)) ) \fCenter \forall x \exists y ( p(x) \land (p(y) \rightarrow q(x)) )$}
+\rlabel{\exists y}
+\UnaryInfC{$p(x) \land (p(y) \rightarrow q(x)) \fCenter \forall x \exists y ( p(x) \land (p(y) \rightarrow q(x)) )$}
+\rlabel{\land}
+\UnaryInfC{$p(x) \fCenter \forall x \exists y ( p(x) \land (p(y) \rightarrow q(x)) )$}
+\rlabel{\forall z}
+\UnaryInfC{$\forall z q(z) \fCenter \forall x \exists y ( p(x) \land (p(y) \rightarrow q(x)) )$}
+\rlabel{\rightarrow}
+\UnaryInfC{$\forall x \exists y ( p(x) \land (p(y) \rightarrow q(x)) ) \rightarrow \forall z q(z) \fCenter \forall x \exists y ( p(x) \land (p(y) \rightarrow q(x)) )$}
+\end{prooftree}
+
+
+Proof for $((p \rightarrow r) \land (q \rightarrow r)) \rightarrow (p \rightarrow q)$:
+\begin{prooftree}
+  % Left branch
+  \AxiomC{}
+  \UnaryInfC{$p \rightarrow r \fCenter p \rightarrow r$}
+  \RightLabel{$\land$}
+  \UnaryInfC{$(p \rightarrow r) \land (q \rightarrow r) \fCenter (p \rightarrow r) \land (q \rightarrow r)$}
+  % Right branch
+  \AxiomC{}
+  \UnaryInfC{$q \rightarrow r \fCenter q \rightarrow r$}
+  \RightLabel{$\land$}
+  \UnaryInfC{$(p \rightarrow r) \land (q \rightarrow r) \fCenter (p \rightarrow r) \land (q \rightarrow r)$}
+  % Combining branches
+  \RightLabel{$\rightarrow$}
+  \BinaryInfC{$(p \rightarrow r) \land (q \rightarrow r) \fCenter p \rightarrow q$}
+  \RightLabel{$\rightarrow$}
+  \UnaryInfC{$((p \rightarrow r) \land (q \rightarrow r)) \rightarrow (p \rightarrow q) \fCenter ((p \rightarrow r) \land (q \rightarrow r)) \rightarrow (p \rightarrow q)$}
+\end{prooftree}
+
+
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+This is my attempt at "Oblig 1".
+
+\subsection{Exercise 01.1 a) f1}
+
+Here is the solution for Exercise 01.1 a) f1:
+
+\begin{prooftree}
+% Left branch
+\AxiomC{~}
+\ax
+\UnaryInfC{$p \fCenter p, \, q $}
+\rlabel{\neg}
+\UnaryInfC{$\fCenter p, \, q,\, \neg p$}
+% Right branch
+\AxiomC{~}
+\ax
+\UnaryInfC{$q \fCenter p, \, q $}
+\rlabel{\neg}
+\UnaryInfC{$\fCenter p, \, q,\, \neg q$}
+% BinaryInfC creates two branches
+\rlabel{\mand}
+\BinaryInfC{$\fCenter p, \, q,\, \neg p \mand \neg q$}
+\rlabel{\mor}
+\UnaryInfC{$\fCenter p \mor q,\, \neg p \mand \neg q$}
+\llabel{\neg}
+\UnaryInfC{$\neg (p \mor q) \fCenter \neg p \mand \neg q$}
+\rlabel{\impl}
+\UnaryInfC{$\fCenter \neg (p \mor q) \impl (\neg p \mand \neg q)$}
+\end{prooftree}
+
+\subsection{Exercise 01.1 b) f2}
+
+Here is the solution for Exercise 01.1 b) f2:
+
+
+\AxiomC{$\Gamma \fCenter A ,\, \Delta$}
+\AxiomC{$\Gamma \fCenter B ,\, \Delta$}
+\rlabel{\mand}
+\BinaryInfC{$\Gamma \fCenter A \mand B, \, \Delta$}
+\DisplayProof
+

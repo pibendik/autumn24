@@ -1,0 +1,158 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{bussproofs}
+\title{Oblig 1}
+\author{Bendik Svalastog}
+\date{}
+% Logical connectives
+\newcommand{\impl}{\rightarrow}
+\newcommand{\mand}{\wedge}
+\newcommand{\mor}{\vee}
+
+% Shorthand for common proof constructs
+\def\seq{\Longrightarrow}
+\def\fCenter{\; \seq \;}
+\newcommand{\scr}{\scriptsize}
+\newcommand{\fns}{\footnotesize}
+% To label rules. Example: \rlabel{\neg} 
+%                       => \RightLabel{$\neg$-\footnotesize{right}}
+%                          \llabel{\forall}
+%                       => \RightLabel{$\forall$-\footnotesize{left}}
+\newcommand{\rlabel}[1]{\RightLabel{$#1$-\fns{right}}}
+\newcommand{\llabel}[1]{\RightLabel{$#1$-\fns{left}}}
+\newcommand{\ax}{\RightLabel{\fns{axiom}}}
+
+\begin{document}
+
+\maketitle
+
+\section*{Exercise 1}
+
+This is my attempt at "Oblig 1".
+
+\subsection*{a)}
+
+I was unsure about the implication left rule. It feels like I misunderstood something. If I find the time for it before the deadline, I'll enter into latex what I was thinking.
+I also believe I might have made mistakes in latex. It is very confusing to write all these "backslash mand" and "backslash fCenter" things. And lastly, I think I missed something about what we typically do when we arrive at a place where the same variable appears twice, as in the first formula with "p, q, p" in the antecedent. I think I remember hearing that we close that branch where that happens, but I couldn't find it explicitly in the Ben-Ari book.
+
+
+\subsubsection*{$F1$}
+
+...Anyway, following is the proof for $\fCenter ((p \impl q) \mand (q \impl r)) \impl (p \impl r)$:
+
+
+\begin{prooftree}
+
+
+\AxiomC{~}
+\ax
+\UnaryInfC{$p, q \fCenter p, r $}
+
+% Right branch
+\AxiomC{~}
+\ax
+\UnaryInfC{$ p \fCenter p, q, r$}
+\llabel{\impl}
+\BinaryInfC{$ p, (p \impl q) \fCenter r, q$}
+
+\AxiomC{~}
+\ax
+\UnaryInfC{$p, r \fCenter p, r $}
+% Right branch
+\AxiomC{~}
+\ax
+\UnaryInfC{$ p, r, q \fCenter r$}
+
+\llabel{\impl}
+\BinaryInfC{$ p, r, (p \impl q) \fCenter r$}
+% BinaryInfC creates two branches
+\llabel{\impl}
+\BinaryInfC{$ p, (p \impl q), (q \impl r) \fCenter r$}
+\llabel{\mand}
+
+\UnaryInfC{$ p, ((p \impl q) \mand (q \impl r)) \fCenter r$}
+\rlabel{\impl}
+\UnaryInfC{$ ((p \impl q) \mand (q \impl r)) \fCenter (p \impl r)$}
+% Adjusted bottom line
+\rlabel{\impl}
+\UnaryInfC{$\fCenter ((p \impl q) \mand (q \impl r)) \impl (p \impl r)$}
+\end{prooftree}
+
+
+\subsubsection*{$F2$}
+
+
+I did not find time to put this in latex, so I added it as a photo of my attempt in the delivery.
+I'm allmost certain I misunderstood something about choosing constants and variables that "allready exist" earlier or other places in the tree. I intend to brush up on this.
+
+\begin{prooftree}
+% Left branch
+\AxiomC{~}
+\ax
+\UnaryInfC{$ \forall x \exists y ( p(x) \land (p(y) \rightarrow q(x)) ) \fCenter \forall z q(z)$}
+\rlabel{\impl}
+\UnaryInfC{$\fCenter \forall x \exists y ( p(x) \land (p(y) \rightarrow q(x)) ) \rightarrow \forall z q(z)$}
+\end{prooftree}
+
+\subsubsection*{$F3$}
+I have a question here. I had two implications after the $\mand$ -left, but I don't know that I logically had to work through both? Like, did the order in which I branch out matter?  I checked on paper, and got the same type of non-closed branches if I chose the other order. Also, I kept repeat terms like "p, q, q" because I wanted to show how I had worked through things. I hope that in it self won't make the proof wrong.
+
+As you can see, I ended up with branches that did not close, and so I believe this to be a counter model (showing that $F3$ is invalid using the sequent calculus)
+
+Proof:
+\begin{prooftree}
+  % Left branch
+  \AxiomC{$p, r \fCenter q, q$}
+
+  \AxiomC{}
+  \UnaryInfC{$p \fCenter p, q, q$}
+
+  \BinaryInfC{$p, p \rightarrow r \fCenter q, q$}
+
+  
+  \AxiomC{$p, r, r, \fCenter q$}
+
+  \AxiomC{}
+  \UnaryInfC{$p, r\fCenter p, q$}
+
+  \BinaryInfC{$p, r, p \rightarrow r \fCenter q $}
+  \rlabel{\rightarrow}
+  
+  \BinaryInfC{$p, p \rightarrow r, q \rightarrow r \fCenter q$} %first branch
+  \llabel{\mand}
+  \UnaryInfC{$p, (p \rightarrow r) \mand ( q \rightarrow r ) \fCenter q$}
+  \rlabel{\rightarrow}  
+  \UnaryInfC{$(p \rightarrow r) \land (q \rightarrow r) \fCenter p \rightarrow q$}
+  \rlabel{\rightarrow}
+  \UnaryInfC{$\fCenter ((p \rightarrow r) \land (q \rightarrow r)) \rightarrow (p \rightarrow q)$}
+\end{prooftree}
+
+
+\newpage
+
+\section*{Exercise O1.2}
+\subsection*{a)}
+\subsubsection*{Bendik's $\uparrow$-left rule}
+
+\AxiomC{$\Gamma, A, B \fCenter \Delta$}
+\rlabel{\uparrow}
+\UnaryInfC{$\Gamma \fCenter (A \uparrow B), \, \Delta$}
+\DisplayProof
+
+\subsubsection*{Bendik's $\uparrow$-right rule}
+
+
+\AxiomC{$\Gamma \fCenter A , \Delta$}
+\AxiomC{$\Gamma \fCenter B , \Delta$}
+\rlabel{\uparrow}
+\BinaryInfC{$\Gamma, (A \uparrow B) \fCenter \Delta$}
+\DisplayProof
+
+\subsection*{b)}
+The property that is shown for each of the rules in the soundness proof for propositional LK, where a property is shown separately for each of the rules of the calculus, is preserving falsifiability upward.
+
+I have a picture of what I ended up with when I tried to show that my rules preserve falsifiability. I'll add it too to Devilry.
+
+
+\end{document}
