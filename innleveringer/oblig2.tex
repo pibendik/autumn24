@@ -1,0 +1,121 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{bussproofs}
+\title{Oblig 2}
+\author{Bendik Svalastog}
+\date{}
+% Logical connectives
+\newcommand{\impl}{\rightarrow}
+\newcommand{\mand}{\wedge}
+\newcommand{\mor}{\vee}
+
+% Shorthand for common proof constructs
+\def\seq{\Longrightarrow}
+\def\fCenter{\; \seq \;}
+\newcommand{\scr}{\scriptsize}
+\newcommand{\fns}{\footnotesize}
+% To label rules. Example: \rlabel{\neg} 
+%                       => \RightLabel{$\neg$-\footnotesize{right}}
+%                          \llabel{\forall}
+%                       => \RightLabel{$\forall$-\footnotesize{left}}
+\newcommand{\rlabel}[1]{\RightLabel{$#1$-\fns{right}}}
+\newcommand{\llabel}[1]{\RightLabel{$#1$-\fns{left}}}
+\newcommand{\ax}{\RightLabel{\fns{axiom}}}
+
+\begin{document}
+
+\maketitle
+\section*{Exercise O2.1}
+
+So, I want to do a bunch of things.
+
+First I want to convert to NNF
+Then I want to put things in conjunctive normal form
+Then I wan to convert to clausal form. That's like the point of all this conversion.
+THEN I can draw the tree, where the goal is to find clashing literals so that I can do a union of the clauses with clashing literals (but without those specific literals) 
+
+Also, at some point, I want to negate the entire formula, since we want to show that the negated formula will be falsified. As far as I could see, I could freely do this after convertion to negation normal form.
+
+
+\subsection*{Conversion to Negation Normal Form (NNF)}
+
+To convert the formula $((p \rightarrow q) \land (q \rightarrow r)) \rightarrow (p \rightarrow r)$ to NNF, we follow these steps:
+
+1. Remove Implications
+   \[
+   ((\neg p \lor q) \land (\neg q \lor r)) \rightarrow (\neg p \lor r)
+   \]
+
+2. Remove the Outer Implication
+   \[
+   \neg ((\neg p \lor q) \land (\neg q \lor r)) \lor (\neg p \lor r)
+   \]
+
+3. Push Negations Inwards
+   \[
+   (\neg (\neg p \lor q) \lor \neg (\neg q \lor r)) \lor (\neg p \lor r)
+   \]
+
+   Simplifying negations
+   \[
+   ((p \land \neg q) \lor (q \land \neg r)) \lor (\neg p \lor r)
+   \]
+
+Thus, the formula in NNF is:
+\[
+((p \land \neg q) \lor (q \land \neg r)) \lor (\neg p \lor r)
+\]
+
+\subsubsection*{distributive laws}
+... Then we can use distributive laws to move conjunctions inside disjunctions to the outside.
+\[
+((p \land \neg q) \lor (q \land \neg r)) \lor (\neg p \lor r)
+\]
+
+First, distribute \((p \land \neg q)\) over \((q \land \neg r)\):
+\[
+(p \land \neg q) \lor (q \land \neg r) \equiv ((p \lor q) \land (p \lor \neg r)) \land (\neg q \lor \neg r)
+\]
+
+Next, distribute the result over \((\neg p \lor r)\):
+\[
+(((p \lor q) \land (p \lor \neg r)) \land (\neg q \lor \neg r)) \lor (\neg p \lor r)
+\]
+
+Distribute \(((p \lor q) \land (p \lor \neg r))\) over \((\neg p \lor r)\):
+\[
+((p \lor \neg p) \lor (q \lor r)) \land ((p \lor \neg r) \lor (\neg r \lor r)) \land (\neg q \lor \neg r)
+\]
+
+Simplify using distributive laws:
+\[
+(q \lor r) \land (\neg q \lor \neg r)
+\]
+
+Thus, the formula after applying distributive laws is:
+\[
+(q \lor r) \land (\neg q \lor \neg r)
+\]
+
+
+\subsubsection*{transform to clausal form}
+
+Thus, the formula after applying distributive laws is:
+
+$\{\{q , r\} , \{ \neg q, \neg r\}\}$
+
+
+
+At this point, I'm pretty sure I've made a mistake, but I'm almost sure that since both C1 and C2 here are just the same formulas but negated, they resolve into the empty set of formulas, and that is an axiom. So, it is a 1 step proof here with resolution calculus.
+
+
+\section*{Exercise O2.2}
+For a resolution-based theorem proving proramme to work with full 1st-order or propositional formulae, and also accept $\uparrow$ formulae, you would have to add one step.
+
+So, those formulae are transformed to clause form before starting resolution. Such a modified theorem provider would have to be changed in such a way that it first would convert any occurrance of a $ (A \uparrow B) $ formula into a  $\neg (A \land B) $ formula. This would be before any further convertion steps. Then it could complete the entireity of the steps left as usual.
+You could also add some mechanism to account for this extra rule later on, but any other place in this chain of steps would be more complex, at least it seems like it was really hard for my classmate who tried it.
+
+
+So, final note: I've got in touch with two classmates now who can work together and help me prepare more before the exam. I know I'm missing bits and pieces, and need to work hard to make it to the exam, but I want to try. Please let me. This is what I've managed in the week since I got better, and I will keep it up. thank you!
+\end{document}
