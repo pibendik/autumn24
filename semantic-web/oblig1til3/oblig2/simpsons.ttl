@@ -1,0 +1,106 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix fam: <http://www.ifi.uio.no/IN3060/family#> .
+@prefix sim: <http://www.ifi.uio.no/IN3060/simpsons#> .
+
+# Homer Simpson
+sim:Homer rdf:type foaf:Person ;
+    foaf:name "Homer Simpson" ;
+    foaf:age "36"^^xsd:int .
+
+# Marge Simpson
+sim:Marge rdf:type foaf:Person ;
+    foaf:name "Marge Simpson" ;
+    foaf:age "34"^^xsd:int .
+
+# Lisa Simpson
+sim:Lisa rdf:type foaf:Person ;
+    foaf:name "Lisa Simpson" ;
+    foaf:age "8"^^xsd:int .
+
+# Bart Simpson
+sim:Bart rdf:type foaf:Person ;
+    foaf:name "Bart Simpson" ;
+    foaf:age "10"^^xsd:int .
+
+# Maggie Simpson
+sim:Maggie rdf:type foaf:Person ;
+    foaf:name "Maggie Simpson" ;
+    foaf:age "1"^^xsd:int .
+
+sim:Mona rdf:type foaf:Person ;
+    foaf:name "Mona Simpson" .
+
+sim:Abraham rdf:type foaf:Person ;
+    foaf:name "Abraham Simpson" .
+
+
+# Marge and Homer are spouses
+sim:Marge fam:hasSpouse sim:Homer .
+sim:Homer fam:hasSpouse sim:Marge .
+
+# Marge is the mother of Bart, Lisa, and Maggie
+sim:Bart fam:hasMother sim:Marge .
+sim:Lisa fam:hasMother sim:Marge .
+sim:Maggie fam:hasMother sim:Marge .
+
+# Homer is the father of Bart, Lisa, and Maggie
+sim:Bart fam:hasFather sim:Homer .
+sim:Lisa fam:hasFather sim:Homer .
+sim:Maggie fam:hasFather sim:Homer .
+
+# Maggie's grandparent relationships through an unknown parent
+_:parent1 rdf:type foaf:Person ;
+    fam:hasFather sim:Abraham .
+
+_:parent2 rdf:type foaf:Person ;
+    fam:hasMother sim:Mona .
+
+# Linking Maggie to her unidentified parents
+sim:Maggie fam:hasParent _:parent1 ;
+           fam:hasParent _:parent2 .
+
+
+# Define Patty, Selma, and Herb as specific instances
+sim:Patty rdf:type foaf:Person ;
+    foaf:name "Patty Bouvier" .
+
+sim:Selma rdf:type foaf:Person ;
+    foaf:name "Selma Bouvier" .
+
+sim:Herb rdf:type foaf:Person ;
+    foaf:name "Herb Powell" .
+
+# Declare Lisa's relationships
+sim:Lisa fam:hasParent sim:Marge .
+sim:Lisa fam:hasParent sim:Homer .
+
+sim:Marge fam:hasSister sim:Patty ;
+          fam:hasSister sim:Selma .
+
+sim:Homer fam:hasBrother sim:Herb .
+
+# Indicating sister relationship between Patty and Selma
+sim:Patty fam:hasSister sim:Selma .
+sim:Selma fam:hasSister sim:Patty .
+
+
+sim:Patty fam:hasSister sim:Selma .
+sim:Selma fam:hasSister sim:Patty .
+
+# Marge's father-in-law (previously stated)
+# sim:Marge fam:hasSpouse sim:Homer .
+
+sim:Homer fam:hasFather sim:Abraham .
+# This implies that Abraham is Marge's father-in-law
+
+# Define the Simpsons family
+sim:SimpsonsFamily rdf:type fam:Family .
+
+# Add members to the family
+sim:SimpsonsFamily fam:hasFamilyMember sim:Homer .
+sim:SimpsonsFamily fam:hasFamilyMember sim:Marge .
+sim:SimpsonsFamily fam:hasFamilyMember sim:Bart .
+sim:SimpsonsFamily fam:hasFamilyMember sim:Lisa .
+sim:SimpsonsFamily fam:hasFamilyMember sim:Maggie .
